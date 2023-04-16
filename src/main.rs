@@ -59,7 +59,7 @@ fn computer_move(board: [[u32; 3]; 3]) {
      // Computer places a 2. May have to import random function.
 }
 
-fn is_valid_move(board: [[u32; 3]; 3], x: u32, y: u32) -> bool {
+fn is_valid_move(board: [[u32; 3]; 3], x: usize, y: usize) -> bool {
     // True if move is valid, else false.
     if x > 2 || y > 2 {
         return false;
