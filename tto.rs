@@ -59,6 +59,19 @@ fn computer_move(board: [[u32; 3]; 3]) {
      // Computer places a 2. May have to import random function.
 }
 
+fn is_valid_move(board: [[u32; 3]; 3], x: u32, y: u32) -> bool {
+    // True if move is valid, else false.
+    if x > 2 || y > 2 {
+        return false;
+    }
+    else if board[x][y] != 0 {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
 fn main() {
 
     let mut board = [[0; 3]; 3];
