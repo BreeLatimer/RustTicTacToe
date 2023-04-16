@@ -20,8 +20,30 @@ fn print_board(board: [[u32; 3]; 3]) {
 }
 
 fn keep_playing(board: [[u32; 3]; 3]) -> bool {
-    println!("No winner.");  // False if board full or either player's won, else true.
-    true
+    // False if board full or either player's won, else true.
+    
+    if board_full(board) {
+        return false;
+    }
+    else if get_winner(board) != 0 {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
+fn board_full(board: [[u32; 3]; 3]) -> bool {
+    // True if board full, else false.
+    for row in board {
+        for cell in row {
+            if cell == 0 {
+                return false;
+            }
+        }
+    }
+
+    true // if we get to this point the board is full.
 }
 
 fn get_winner(board: [[u32; 3]; 3]) -> i32 {
