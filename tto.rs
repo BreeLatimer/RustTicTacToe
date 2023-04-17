@@ -1,4 +1,5 @@
 //tto.rs
+use std::io;
 
 fn print_board(board: [[u32; 3]; 3]) {
     // Prints the contents of the board. 1 is X, 2 is O, others blank.
@@ -51,12 +52,42 @@ fn get_winner(board: [[u32; 3]; 3]) -> i32 {
     0  // 0 if none, 1 if Player, 2 if computer.
 }
 
-fn player_move(board: [[u32; 3]; 3]) {
-      // Ask player for location on grid, then change to 1 (if not already taken).
+fn player_move(board: &mut [[u32; 3]; 3]) {
+    // Ask player for location on grid, then change to 1 (if not already taken).
+    let mut invalid_pos: bool = true;
+    while invalid_pos {
+        println!("Enter row (0-2): ");
+        let row: usize = read_input(); // Read user input for row
+        println!("Enter column (0-2): ");
+        let col: usize = read_input(); // Read user input for column
+        
+        if row < 3 && col < 3 {
+            if board[row][col] == 0 {
+                board[row][col] = 1;
+                invalid_pos = false;
+            } else {
+                println!("Invalid move. Cell already taken. Please try another move.");
+            }
+        } else {
+            println!("Move out of bounds. Please try another move.")
+        }
+        
+    }
 }
 
 fn computer_move(board: [[u32; 3]; 3]) {
      // Computer places a 2. May have to import random function.
+}
+
+fn read_input() -> usize {
+    loop {
+        let mut input = String::new();
+        io::stdin().read_line(&mut input).expect("Failed to read input");
+        match input.trim().parse::<usize>() {
+            Ok(num) => return num,
+            Err(_) => println!("Invalid input. Please enter a valid integer."),
+        }
+    }
 }
 
 fn main() {
@@ -65,7 +96,7 @@ fn main() {
     print_board(board);
 
     while keep_playing(board) {  // While the board isn't full and neither player has won, keep taking turns.
-        player_move(board);  // Player is X, X goes first.
+        player_move(&mut board);  // Player is X, X goes first.
         print_board(board);
         if !keep_playing(board) {
             break;
